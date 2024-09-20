@@ -26,6 +26,8 @@ body {
   }
 }
 
+/* Component section */
+
 .section {
   position: relative;
   height: 650px;
@@ -55,3 +57,20 @@ body {
 .section__btn-our {
   border: 3px solid #ffffff;
 }
+
+.section__btn-order:hover {
+  background-image: linear-gradient(0.139turn, rgb(44, 83, 116) 0%, rgb(47, 79, 106) 100%);
+}
+
+.section__btn-our:hover {
+  background: #fff;
+  color: #0a0a0a;
+}
+
+/* Component About */
+
+.about {
+  height: 847px;
+  background-color: #071623;
+}
+
