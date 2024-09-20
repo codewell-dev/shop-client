@@ -25,3 +25,33 @@ body {
     text-wrap: balance;
   }
 }
+
+.section {
+  position: relative;
+  height: 650px;
+  background-image: url("https://static.tildacdn.com/tild6565-6334-4637-b731-373132363961/IMG_5849clean.jpg");
+  background-position: center center;
+    background-attachment: scroll;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.section__inner {
+  position: relative;
+  height: 650px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(10, 38, 60, 0.6)), to(rgba(0, 0, 0, 0.6)));
+  background-image: -webkit-linear-gradient(top, rgba(10, 38, 60, 0.6), rgba(0, 0, 0, 0.6));
+  background-image: linear-gradient(to bottom, rgba(10, 38, 60, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.section__content {
+  height: 100%;
+}
+
+.section__btn-order {
+  background-image: linear-gradient(0.139turn, rgba(18, 61, 96, 1) 0%, rgba(21, 70, 109, 1) 100%);
+}
+
+.section__btn-our {
+  border: 3px solid #ffffff;
+}
