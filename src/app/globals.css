@@ -31,7 +31,7 @@ body {
 .section {
   position: relative;
   height: 650px;
-  background-image: url("https://static.tildacdn.com/tild6565-6334-4637-b731-373132363961/IMG_5849clean.jpg");
+  background-image: url("https://thesalonbarbershop.ch/wp-content/uploads/2023/02/Home_banner_orig.jpg");
   background-position: center center;
     background-attachment: scroll;
     background-size: cover;
@@ -41,9 +41,9 @@ body {
 .section__inner {
   position: relative;
   height: 650px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(10, 38, 60, 0.6)), to(rgba(0, 0, 0, 0.6)));
+  /* background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(10, 38, 60, 0.6)), to(rgba(0, 0, 0, 0.6)));
   background-image: -webkit-linear-gradient(top, rgba(10, 38, 60, 0.6), rgba(0, 0, 0, 0.6));
-  background-image: linear-gradient(to bottom, rgba(10, 38, 60, 0.6), rgba(0, 0, 0, 0.6));
+  background-image: linear-gradient(to bottom, rgba(10, 38, 60, 0.6), rgba(0, 0, 0, 0.6)); */
 }
 
 .section__content {
