@@ -26,6 +26,15 @@ body {
   }
 }
 
+.btn-blue {
+  background-image: linear-gradient(0.139turn, rgba(18, 61, 96, 1) 0%, rgba(21, 70, 109, 1) 100%);
+  border-color: linear-gradient(0.139turn, rgba(18, 61, 96, 1) 0%, rgba(21, 70, 109, 1) 100%);
+}
+.btn-blue:hover {
+  background-image: linear-gradient(0.139turn, rgb(129, 176, 214) 0%, rgba(21, 70, 109, 1) 100%);
+  border-color: linear-gradient(0.139turn, rgba(18, 61, 96, 1) 0%, rgba(21, 70, 109, 1) 100%);
+}
+
 /* Component section */
 
 .section {
@@ -74,3 +83,10 @@ body {
   background-color: #071623;
 }
 
+.services {
+  
+}
+
+.color-blue {
+  color: rgba(18, 61, 96, 1);
+}
