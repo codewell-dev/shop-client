@@ -33,14 +33,14 @@ const products = [
       imageSrc: 'https://zarva.com.ua/image/cachewebp/catalog/american_crew/beard-shave/maslo-do-britya-american-crew-ultra-gliding-shave-oil-50-ml-zarva-600x600.webp',
       imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
     },
-    {
-      id: 5,
-      name: 'Масло до бритья AMERICAN CREW Ultra Gliding Shave Oil 50 мл',
-      href: '#',
-      price: '770',
-      imageSrc: 'https://zarva.com.ua/image/cachewebp/catalog/BBR/jpg/shave/maslo-do-britya-the-bluebeards-revenge-pre-shave-oil-100-ml-zarva-1-600x600.webp',
-      imageAlt: 'Масло до бритья THE BLUEBEARDS REVENGE Pre-Shave Oil 100 мл.',
-    },
+    // {
+    //   id: 5,
+    //   name: 'Масло до бритья AMERICAN CREW Ultra Gliding Shave Oil 50 мл',
+    //   href: '#',
+    //   price: '770',
+    //   imageSrc: 'https://zarva.com.ua/image/cachewebp/catalog/BBR/jpg/shave/maslo-do-britya-the-bluebeards-revenge-pre-shave-oil-100-ml-zarva-1-600x600.webp',
+    //   imageAlt: 'Масло до бритья THE BLUEBEARDS REVENGE Pre-Shave Oil 100 мл.',
+    // },
     // More products...
   ]
   

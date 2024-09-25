@@ -1,21 +1,15 @@
-import { configureStore, Dispatch } from '@reduxjs/toolkit';
-import thunk, {ThunkMiddleware, ThunkAction} from 'redux-thunk';
-import authReducer from './reducers/authReducer';
-import { Action } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit'
+import CounterSlice from './features/CounterSlice'
+import authReducer from './reducers/authReducer'
 
-const store = configureStore({
-  reducer: {
-    // auth: authReducer,
-  },
-});
+export const makeStore = () => {
+  return configureStore({
+    reducer: authReducer
+  })
+}
 
-export default store;
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    Action<string>
->;
+// Infer the type of makeStore
+export type AppStore = ReturnType<typeof makeStore>
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']

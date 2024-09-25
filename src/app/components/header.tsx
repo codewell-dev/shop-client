@@ -20,6 +20,8 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
+  HomeIcon,
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
@@ -59,18 +61,22 @@ export default function Header() {
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Про нас
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          
+          <Link href="#" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
+          <HomeIcon className='w-4 h-4' />
+            Домашня сторінка
+          </Link>
+          <Link href="#" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
+          <HomeIcon className='w-4 h-4' />
+            Школа
+          </Link>
+          <Link href="#" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
+          <CurrencyDollarIcon className='w-4 h-4' />
             Ціни
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Сертифікати
-          </a>
+          </Link>
           <Popover className="relative">
             <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-              Косметика
+              Магазин
               <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
             </PopoverButton>
 
@@ -97,7 +103,7 @@ export default function Header() {
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+              {/* <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                 {callsToAction.map((item) => (
                   <a
                     key={item.name}
@@ -108,7 +114,7 @@ export default function Header() {
                     {item.name}
                   </a>
                 ))}
-              </div>
+              </div> */}
             </PopoverPanel>
           </Popover>
         </PopoverGroup>
@@ -147,7 +153,7 @@ export default function Header() {
                     Product
                     <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none group-data-[open]:rotate-180" />
                   </DisclosureButton>
-                  <DisclosurePanel className="mt-2 space-y-2">
+                  {/* <DisclosurePanel className="mt-2 space-y-2">
                     {[...products, ...callsToAction].map((item) => (
                       <DisclosureButton
                         key={item.name}
@@ -158,7 +164,7 @@ export default function Header() {
                         {item.name}
                       </DisclosureButton>
                     ))}
-                  </DisclosurePanel>
+                  </DisclosurePanel> */}
                 </Disclosure>
                 <a
                   href="#"

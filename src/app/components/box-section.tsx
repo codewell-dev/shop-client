@@ -17,7 +17,7 @@ export default function BoxSection({title, text, center, logo}: TypeBoxSection) 
                 <hr className={`${logo ? `border-white` : `border-black`} w-14 border-1`} />
             </div>
             <h5 className={`${center && `text-center`} text-4xl mt-5 font-semibold`}>{title}</h5>
-            <p className={`${center && `text-center`} mt-5 mb-5`}>
+            <p className={`${center && `text-center`} mt-5 mb-5 text-gray-400`}>
                 {text}
             </p>
         </div>

@@ -90,3 +90,7 @@ body {
 .color-blue {
   color: rgba(18, 61, 96, 1);
 }
+
+.bg-blue {
+  background-color: rgba(18, 61, 96, 1);
+}

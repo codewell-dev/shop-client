@@ -1,35 +1,10 @@
 const people = [
     {
       name: 'Колян',
-      role: 'Головний Барбер',
+      role: 'Головний',
       imageUrl:
-        'https://static.ionlinecdn.com/integrica/images/9P5OXe4O/user/R4ZzQz4P-qEMkkY.jpg',
+        '2324234234',
     },
-    {
-        name: 'Аркадій',
-        role: 'Старший Барбер',
-        imageUrl:
-          'https://static.ionlinecdn.com/integrica/images/9P5OXe4O/user/35NDkY2w-Zb7Pt6.png',
-      },
-      {
-        name: 'Ксенія',
-        role: 'Досвідчений Барбер',
-        imageUrl:
-          'https://static.ionlinecdn.com/integrica/images/9P5OXe4O/user/k5YYYg5X-uax9Xk.png',
-      },
-      {
-        name: 'Бодя',
-        role: 'Барбер',
-        imageUrl:
-          'https://static.ionlinecdn.com/integrica/images/9P5OXe4O/user/M40J7w19-jHBYSh.png',
-      },
-      {
-        name: 'Катя',
-        role: 'Барбер',
-        imageUrl:
-          'https://static.ionlinecdn.com/integrica/images/9P5OXe4O/user/G2VZmk2A-hbRzHf.jpg',
-      },
-    // More people...
   ]
   
   export default function Team() {
