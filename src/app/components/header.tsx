@@ -21,17 +21,18 @@ import {
   SquaresPlusIcon,
   XMarkIcon,
   HomeIcon,
-  CurrencyDollarIcon
+  CurrencyDollarIcon,
+  UserIcon,
+  ShoppingBagIcon
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 
 const products = [
-  { name: 'Засоби для укладання волосся', description: 'Глина для волосся, Паста для волосся, Помада для волосся, Сольовий спрей для волосся, Пудра для волосся', href: '/', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
+  { name: 'Догляд за обличчям', description: 'Очищення обличчя, креми, засоби для гоління та після гоління', href: 'https://barbers.ua/content/images/42/50x50l80nn0/44779378068131.webp', icon: ChartPieIcon },
+  { name: 'Догляд за бородою та вусами', description: 'Олії, бальзами, шампуні та кондиціонери для бороди', href: 'https://barbers.ua/content/images/9/50x50l80nn0/50940542540040.webp', icon: CursorArrowRaysIcon },
+  { name: 'Догляд за тілом', description: 'Гелі для душу, крем для тіла та дезодоранти', href: 'https://barbers.ua/content/images/35/50x50l80nn0/95584128095436.webp', icon: FingerPrintIcon },
+  { name: 'Догляд за волоссям', description: 'Очищення, стайлінг та зволоження', href: 'https://barbers.ua/content/images/16/50x40l80nn0/56326200899508.webp', icon: SquaresPlusIcon },
 ]
 const callsToAction = [
   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
@@ -60,18 +61,19 @@ export default function Header() {
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
         </div>
+
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          
+
           <Link href="#" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
-          <HomeIcon className='w-4 h-4' />
+            <HomeIcon className='w-4 h-4' />
             Домашня сторінка
           </Link>
           <Link href="#" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
-          <HomeIcon className='w-4 h-4' />
+            <HomeIcon className='w-4 h-4' />
             Школа
           </Link>
           <Link href="#" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
-          <CurrencyDollarIcon className='w-4 h-4' />
+            <CurrencyDollarIcon className='w-4 h-4' />
             Ціни
           </Link>
           <Popover className="relative">
@@ -91,7 +93,7 @@ export default function Header() {
                     className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
                   >
                     <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                      <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
+                      <img className='h-8 w-16' src={item.href} />
                     </div>
                     <div className="flex-auto">
                       <a href={item.href} className="block font-semibold text-gray-900">
@@ -118,8 +120,16 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
         </PopoverGroup>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900">
+        <div className="hidden gap-4 lg:flex lg:flex-1 lg:justify-end">
+          <div className='border-2 p-1 px-3 border-black'>
+            <Link href="/login" className=" flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
+              <p className='semibold'>0</p>
+              <ShoppingBagIcon className='w-4 h-4' />
+              Корзина
+            </Link>
+          </div>
+          <Link href="/login" className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-900 border-b-2 border-white hover:border-black">
+            <UserIcon className='w-4 h-4' />
             Вхід <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { ReactElement } from "react";
 import { AtSymbolIcon, PhoneArrowUpRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import FooterContacts from "./footer-contact";
 import ButtonBlue from "./button-blue";
 import Link from "next/link";
 
@@ -38,18 +37,46 @@ export default function Footer() {
     return <div className="border-t-2 w-full">
         <div className="flex justify-between mx-auto max-w-7xl mt-10">
             <div className="logo">
-                <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto mb-10" />
-                <ButtonBlue text="book an appoitment" color={true} />
+                <div className="">
+                <h6 className="text-xl font-semibold mb-2">Ми в соціальних мережах:</h6>
+                    <div className="flex gap-5 mb-4">
+                        <img src="https://www.svgrepo.com/show/13639/instagram.svg" className="h-8 w-8" />
+                        <img src="https://www.svgrepo.com/show/13643/facebook.svg" className="h-8 w-8" />
+                        <img src="https://www.svgrepo.com/show/13671/youtube.svg" className="h-8 w-8" />
+                        <img src="https://www.svgrepo.com/show/13677/twitter.svg" className="h-8 w-8" />
+                    </div>
+
+                </div>
+                <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto mb-6" />
+                <ButtonBlue text="Записатися" color={true} />
             </div>
+            <ul className="menu__list">
+                <li className="mb-1 font-semibold text-xl">Меню</li>
+                <li>Домашня сторінка</li>
+                <li>Школа</li>
+                <li>Ціни</li>
+                <li>Школа</li>
+                <li>Ціни</li>
+            </ul>
+
+            <ul className="menu__list">
+                <li className="mb-1 font-semibold  text-xl">Магазин</li>
+                <li>Домашня сторінка</li>
+                <li>Школа</li>
+                <li>Ціни</li>
+            </ul>
+
+
             <div>
                 {data.map((el: TypeFooterContacts) => (
-                    <Link href="/" className="flex items-center gap-3 mb-5">
+                    <Link key={el.id} href="/" className="flex items-center gap-3 mb-5">
                         <div className="bg-blue p-3 btn-blue">
-                                <el.icon className="h-8 w-8 text-white" />
+                            <el.icon className="h-6 w-6 text-white" />
+
                         </div>
                         <div>
-                            <h6 className="font-bold uppercase text-xl text-gray-400">{el.title}</h6>
-                            <h4 className="font-semibold text-3xl border-black">{el.text}</h4>
+                            <h6 className="font-bold uppercase text-sm text-gray-400">{el.title}</h6>
+                            <h4 className="font-semibold text-xl border-black">{el.text}</h4>
                         </div>
                     </Link>
                 ))}
