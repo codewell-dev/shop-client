@@ -1,207 +1,208 @@
 'use client'
 
 import { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, Radio, RadioGroup } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { StarIcon } from '@heroicons/react/20/solid'
+import { ShoppingBagIcon, HeartIcon, ArrowLeftIcon, CheckIcon, TruckIcon, ShieldCheckIcon } from '@heroicons/react/24/outline'
+import { getProductBySlug, products } from '../../lib/data/products'
+import ProductCard from '../../components/product-card'
 
-const product = {
-  name: 'Подарочный набор по уходу за бородой Ginger & Pink Papper Barbers',
-  price: '698 грн',
-  rating: 3.9,
-  reviewCount: 117,
-  href: '#',
-  imageSrc: 'https://barbers.ua/content/images/10/892x891l80mc0/podarunkovyi-nabir-dlia-dohliadu-za-borodoiu-ginger-pink-papper-barbers-59908245283958.webp',
-  imageAlt: 'Two each of gray, white, and black shirts arranged on table.',
-  colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-  ],
-  sizes: [
-    { name: 'XXS', inStock: true },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: 'XXL', inStock: true },
-    { name: 'XXXL', inStock: false },
-  ],
-}
+interface Props { params: { slug: string } }
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ')
-}
+export default function ProductDetailPage({ params }: Props) {
+  const product = getProductBySlug(params.slug)
+  if (!product) notFound()
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const [open, setOpen] = useState(true)
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
-  console.log(params.slug, 'params')
+  const [qty, setQty] = useState(1)
+  const [added, setAdded] = useState(false)
+  const [wishlisted, setWishlisted] = useState(false)
+
+  const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4)
+  const discount = product.comparePrice
+    ? Math.round((1 - product.price / product.comparePrice) * 100)
+    : null
+
+  const handleAddToCart = () => {
+    setAdded(true)
+    setTimeout(() => setAdded(false), 2200)
+  }
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
-      <DialogBackdrop
-        transition
-        className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:block"
-      />
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
-          <DialogPanel
-            transition
-            className="flex w-full transform text-left text-base transition data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in md:my-8 md:max-w-2xl md:px-4 data-[closed]:md:translate-y-0 data-[closed]:md:scale-95 lg:max-w-4xl"
-          >
-            <div className="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-              >
-                <span className="sr-only">Close</span>
-                <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-              </button>
+    <div style={{ background: 'var(--parchment)', minHeight: '100vh', paddingTop: '80px' }}>
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 mb-10">
+          <Link href="/" className="font-mono text-xs tracking-widest uppercase transition-colors" style={{ color: 'var(--ash)' }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--obsidian)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--ash)')}
+          >Home</Link>
+          <span style={{ color: 'var(--mist)' }}>/</span>
+          <Link href="/products" className="font-mono text-xs tracking-widest uppercase transition-colors" style={{ color: 'var(--ash)' }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--obsidian)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--ash)')}
+          >Products</Link>
+          <span style={{ color: 'var(--mist)' }}>/</span>
+          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--obsidian)' }}>{product.name}</span>
+        </nav>
 
-              <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-                <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                  <img alt={product.imageAlt} src={product.imageSrc} className="object-cover object-center" />
-                </div>
-                <div className="sm:col-span-8 lg:col-span-7">
-                  <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">{product.name}</h2>
+        {/* Main product layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
+          {/* Image */}
+          <div className="relative">
+            <div className="aspect-square bg-white overflow-hidden">
+              <img
+                src={product.imageSrc}
+                alt={product.imageAlt}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Badges */}
+            <div className="absolute top-4 left-4 flex flex-col gap-2">
+              {product.isNew && <span className="badge badge-new">New Arrival</span>}
+              {product.isBestSeller && <span className="badge badge-dark">Bestseller</span>}
+              {discount && <span className="badge badge-gold">−{discount}%</span>}
+            </div>
+            {/* Wishlist */}
+            <button
+              onClick={() => setWishlisted(!wishlisted)}
+              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white shadow-md transition-all hover:scale-110"
+              aria-label="Wishlist"
+            >
+              <HeartIcon
+                className="w-5 h-5"
+                style={{ color: wishlisted ? '#e00' : 'var(--smoke)', fill: wishlisted ? '#e00' : 'none' }}
+              />
+            </button>
+          </div>
 
-                  <section aria-labelledby="information-heading" className="mt-2">
-                    <h3 id="information-heading" className="sr-only">
-                      Product information
-                    </h3>
+          {/* Details */}
+          <div className="flex flex-col">
+            {/* Brand & category */}
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
+                {product.brand}
+              </p>
+              <span className="badge badge-dark" style={{ background: 'var(--cream)', color: 'var(--smoke)' }}>
+                {product.category}
+              </span>
+            </div>
 
-                    <p className="text-2xl text-gray-900">{product.price}</p>
+            <h1
+              className="font-display font-bold mb-4 leading-tight"
+              style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: 'var(--obsidian)', letterSpacing: '-0.02em' }}
+            >
+              {product.name}
+            </h1>
 
-                    {/* Reviews */}
-                    <div className="mt-6">
-                      <h4 className="sr-only">Reviews</h4>
-                      <div className="flex items-center">
-                        <div className="flex items-center">
-                          {[0, 1, 2, 3, 4].map((rating) => (
-                            <StarIcon
-                              key={rating}
-                              aria-hidden="true"
-                              className={classNames(
-                                product.rating > rating ? 'text-gray-900' : 'text-gray-200',
-                                'h-5 w-5 flex-shrink-0',
-                              )}
-                            />
-                          ))}
-                        </div>
-                        <p className="sr-only">{product.rating} out of 5 stars</p>
-                        <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                          {product.reviewCount} reviews
-                        </a>
-                      </div>
-                    </div>
-                  </section>
+            {/* Rating */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex">
+                {[1,2,3,4,5].map(n => (
+                  <StarIcon key={n} className="w-4 h-4" style={{ color: n <= Math.round(product.rating) ? 'var(--gold)' : 'var(--mist)' }} />
+                ))}
+              </div>
+              <span className="font-mono text-xs" style={{ color: 'var(--smoke)' }}>
+                {product.rating} ({product.reviewCount} reviews)
+              </span>
+            </div>
 
-                  <section aria-labelledby="options-heading" className="mt-10">
-                    <h3 id="options-heading" className="sr-only">
-                      Product options
-                    </h3>
+            {/* Description */}
+            <p className="text-sm leading-relaxed mb-8" style={{ color: 'var(--smoke)', borderBottom: '1px solid var(--mist)', paddingBottom: '2rem' }}>
+              {product.description}
+            </p>
 
-                    <form>
-                      {/* Colors */}
-                      <fieldset aria-label="Choose a color">
-                        <legend className="text-sm font-medium text-gray-900">Color</legend>
+            {/* Price */}
+            <div className="flex items-baseline gap-3 mb-8">
+              <span className="font-display text-3xl font-bold" style={{ color: 'var(--obsidian)' }}>
+                ₴{product.price}
+              </span>
+              {product.comparePrice && (
+                <>
+                  <span className="text-base line-through" style={{ color: 'var(--ash)' }}>₴{product.comparePrice}</span>
+                  <span className="badge badge-gold">Save ₴{product.comparePrice - product.price}</span>
+                </>
+              )}
+            </div>
 
-                        <RadioGroup
-                          value={selectedColor}
-                          onChange={setSelectedColor}
-                          className="mt-4 flex items-center space-x-3"
-                        >
-                          {product.colors.map((color) => (
-                            <Radio
-                              key={color.name}
-                              value={color}
-                              aria-label={color.name}
-                              className={classNames(
-                                color.selectedClass,
-                                'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none data-[checked]:ring-2 data-[focus]:data-[checked]:ring data-[focus]:data-[checked]:ring-offset-1',
-                              )}
-                            >
-                              <span
-                                aria-hidden="true"
-                                className={classNames(
-                                  color.class,
-                                  'h-8 w-8 rounded-full border border-black border-opacity-10',
-                                )}
-                              />
-                            </Radio>
-                          ))}
-                        </RadioGroup>
-                      </fieldset>
+            {/* Volume */}
+            {product.volume && (
+              <div className="flex items-center gap-2 mb-6">
+                <span className="font-mono text-xs" style={{ color: 'var(--smoke)' }}>Volume:</span>
+                <span className="badge badge-dark">{product.volume}</span>
+              </div>
+            )}
 
-                      {/* Sizes */}
-                      <fieldset aria-label="Choose a size" className="mt-10">
-                        <div className="flex items-center justify-between">
-                          <div className="text-sm font-medium text-gray-900">Size</div>
-                          <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                            Size guide
-                          </a>
-                        </div>
-                        <RadioGroup
-                          value={selectedSize}
-                          onChange={setSelectedSize}
-                          className="mt-4 grid grid-cols-4 gap-4"
-                        >
-                          {product.sizes.map((size) => (
-                            <Radio
-                              key={size.name}
-                              value={size}
-                              disabled={!size.inStock}
-                              className={classNames(
-                                size.inStock
-                                  ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                                  : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                                'group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1',
-                              )}
-                            >
-                              <span>{size.name}</span>
-                              {size.inStock ? (
-                                <span
-                                  aria-hidden="true"
-                                  className="pointer-events-none absolute -inset-px rounded-md border-2 border-transparent group-data-[focus]:border group-data-[checked]:border-indigo-500"
-                                />
-                              ) : (
-                                <span
-                                  aria-hidden="true"
-                                  className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                                >
-                                  <svg
-                                    stroke="currentColor"
-                                    viewBox="0 0 100 100"
-                                    preserveAspectRatio="none"
-                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                  >
-                                    <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                  </svg>
-                                </span>
-                              )}
-                            </Radio>
-                          ))}
-                        </RadioGroup>
-                      </fieldset>
-
-                      <button
-                        type="submit"
-                        className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        Add to bag
-                      </button>
-                    </form>
-                  </section>
-                </div>
+            {/* Quantity */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--smoke)' }}>Qty</span>
+              <div className="flex items-center border" style={{ borderColor: 'var(--mist)' }}>
+                <button
+                  className="qty-btn"
+                  onClick={() => setQty(q => Math.max(1, q - 1))}
+                >−</button>
+                <span className="w-10 text-center text-sm font-semibold" style={{ color: 'var(--obsidian)' }}>{qty}</span>
+                <button
+                  className="qty-btn"
+                  onClick={() => setQty(q => q + 1)}
+                >+</button>
               </div>
             </div>
-          </DialogPanel>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              <button
+                onClick={handleAddToCart}
+                className={`btn flex-1 ${added ? 'btn-gold' : 'btn-primary'} btn-lg transition-all`}
+              >
+                {added ? (
+                  <><CheckIcon className="w-5 h-5" /> Added to Cart</>
+                ) : (
+                  <><ShoppingBagIcon className="w-5 h-5" /> Add to Cart</>
+                )}
+              </button>
+              <button className="btn btn-outline btn-lg">
+                Buy Now
+              </button>
+            </div>
+
+            {/* Trust badges */}
+            <div className="grid grid-cols-2 gap-3 pt-6 border-t" style={{ borderColor: 'var(--mist)' }}>
+              {[
+                { icon: TruckIcon, label: 'Free Delivery', sub: 'On orders over ₴1200' },
+                { icon: ShieldCheckIcon, label: '30-Day Returns', sub: 'Hassle-free guarantee' },
+              ].map(({ icon: Icon, label, sub }) => (
+                <div key={label} className="flex items-center gap-3 p-3" style={{ background: 'var(--cream)' }}>
+                  <Icon className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--gold)' }} />
+                  <div>
+                    <p className="text-xs font-semibold" style={{ color: 'var(--obsidian)' }}>{label}</p>
+                    <p className="text-xs" style={{ color: 'var(--smoke)' }}>{sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+
+        {/* Related products */}
+        {related.length > 0 && (
+          <section>
+            <div className="flex items-center gap-6 mb-10">
+              <div>
+                <p className="section-label mb-2">You May Also Like</p>
+                <h2 className="font-display text-3xl font-bold" style={{ color: 'var(--obsidian)', letterSpacing: '-0.02em' }}>
+                  Related Products
+                </h2>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {related.map(p => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
-    </Dialog>
+    </div>
   )
 }

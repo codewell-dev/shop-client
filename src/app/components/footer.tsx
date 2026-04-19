@@ -1,86 +1,207 @@
-import Image from "next/image";
-import React, { ReactElement } from "react";
-import { AtSymbolIcon, PhoneArrowUpRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import ButtonBlue from "./button-blue";
+"use client";
 import Link from "next/link";
+import {
+  AtSymbolIcon,
+  PhoneArrowUpRightIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
+import { CATEGORIES } from "../lib/data/products";
 
-interface TypeFooterContacts {
-    id: number;
-    title: string;
-    text: string;
-    icon: any;
-}
-
-let data: TypeFooterContacts[] = [
-    {
-        id: 1,
-        title: "GIVE US A CALL",
-        text: "030 92400267",
-        icon: PhoneArrowUpRightIcon,
-    },
-    {
-        id: 2,
-        title: "EMAIL US",
-        text: "cut@andersbarbers.de",
-        icon: AtSymbolIcon
-    },
-    {
-        id: 3,
-        title: "VISIT US",
-        text: "Schwedenstr. 17A, 13357 Berlin",
-        icon: MapPinIcon
-    },
-
-]
+const SOCIAL_LINKS = [
+  { label: "Instagram", href: "#", icon: "𝕀" },
+  { label: "Facebook", href: "#", icon: "𝔽" },
+  { label: "YouTube", href: "#", icon: "𝕐" },
+];
 
 export default function Footer() {
-    return <div className="border-t-2 w-full">
-        <div className="flex justify-between mx-auto max-w-7xl mt-10">
-            <div className="logo">
-                <div className="">
-                <h6 className="text-xl font-semibold mb-2">Ми в соціальних мережах:</h6>
-                    <div className="flex gap-5 mb-4">
-                        <img src="https://www.svgrepo.com/show/13639/instagram.svg" className="h-8 w-8" />
-                        <img src="https://www.svgrepo.com/show/13643/facebook.svg" className="h-8 w-8" />
-                        <img src="https://www.svgrepo.com/show/13671/youtube.svg" className="h-8 w-8" />
-                        <img src="https://www.svgrepo.com/show/13677/twitter.svg" className="h-8 w-8" />
-                    </div>
-
-                </div>
-                <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto mb-6" />
-                <ButtonBlue text="Записатися" color={true} />
+  return (
+    <footer
+      style={{
+        background: "var(--obsidian)",
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-7 h-7 bg-white flex items-center justify-center">
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    color: "var(--obsidian)",
+                    fontSize: "0.8rem",
+                    fontWeight: 900,
+                  }}
+                >
+                  G
+                </span>
+              </div>
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  color: "#fff",
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                }}
+              >
+                GROMVAULT
+              </span>
             </div>
-            <ul className="menu__list">
-                <li className="mb-1 font-semibold text-xl">Меню</li>
-                <li>Домашня сторінка</li>
-                <li>Школа</li>
-                <li>Ціни</li>
-                <li>Школа</li>
-                <li>Ціни</li>
-            </ul>
-
-            <ul className="menu__list">
-                <li className="mb-1 font-semibold  text-xl">Магазин</li>
-                <li>Домашня сторінка</li>
-                <li>Школа</li>
-                <li>Ціни</li>
-            </ul>
-
-
-            <div>
-                {data.map((el: TypeFooterContacts) => (
-                    <Link key={el.id} href="/" className="flex items-center gap-3 mb-5">
-                        <div className="bg-blue p-3 btn-blue">
-                            <el.icon className="h-6 w-6 text-white" />
-
-                        </div>
-                        <div>
-                            <h6 className="font-bold uppercase text-sm text-gray-400">{el.title}</h6>
-                            <h4 className="font-semibold text-xl border-black">{el.text}</h4>
-                        </div>
-                    </Link>
-                ))}
+            <p
+              className="text-xs leading-relaxed mb-6"
+              style={{ color: "rgba(255,255,255,0.35)", maxWidth: "220px" }}
+            >
+              Premium grooming essentials curated for the modern gentleman.
+            </p>
+            <div className="flex gap-4">
+              {SOCIAL_LINKS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  className="w-9 h-9 border flex items-center justify-center text-sm transition-colors duration-200"
+                  style={{
+                    borderColor: "rgba(255,255,255,0.12)",
+                    color: "rgba(255,255,255,0.45)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor =
+                      "var(--gold)";
+                    (e.currentTarget as HTMLElement).style.color =
+                      "var(--gold)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor =
+                      "rgba(255,255,255,0.12)";
+                    (e.currentTarget as HTMLElement).style.color =
+                      "rgba(255,255,255,0.45)";
+                  }}
+                >
+                  {s.icon}
+                </a>
+              ))}
             </div>
+          </div>
+
+          {/* Shop */}
+          <div>
+            <h4
+              className="font-mono text-xs tracking-widest uppercase mb-5"
+              style={{ color: "var(--gold)" }}
+            >
+              Shop
+            </h4>
+            <ul className="space-y-3">
+              {CATEGORIES.map((cat) => (
+                <li key={cat.id}>
+                  <Link
+                    href={`/products?category=${cat.id}`}
+                    className="text-xs transition-colors"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "rgba(255,255,255,0.45)")
+                    }
+                  >
+                    {cat.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4
+              className="font-mono text-xs tracking-widest uppercase mb-5"
+              style={{ color: "var(--gold)" }}
+            >
+              Company
+            </h4>
+            <ul className="space-y-3">
+              {["About Us", "Journal", "Careers", "Press"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="text-xs transition-colors"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "rgba(255,255,255,0.45)")
+                    }
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4
+              className="font-mono text-xs tracking-widest uppercase mb-5"
+              style={{ color: "var(--gold)" }}
+            >
+              Contact
+            </h4>
+            <ul className="space-y-4">
+              {[
+                { icon: PhoneArrowUpRightIcon, label: "+380 93 000 0000" },
+                { icon: AtSymbolIcon, label: "hello@gromvault.com" },
+                { icon: MapPinIcon, label: "Kyiv, Ukraine" },
+              ].map(({ icon: Icon, label }) => (
+                <li key={label} className="flex items-center gap-3">
+                  <Icon
+                    className="w-4 h-4 flex-shrink-0"
+                    style={{ color: "var(--gold)", opacity: 0.7 }}
+                  />
+                  <span
+                    className="text-xs"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
+                  >
+                    {label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-    </div>
+
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t"
+          style={{ borderColor: "rgba(255,255,255,0.06)" }}
+        >
+          <p
+            className="font-mono text-xs"
+            style={{ color: "rgba(255,255,255,0.2)" }}
+          >
+            © {new Date().getFullYear()} GROMVAULT. All rights reserved.
+          </p>
+          <div className="flex gap-6">
+            {["Privacy Policy", "Terms", "Shipping"].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="font-mono text-xs transition-colors"
+                style={{ color: "rgba(255,255,255,0.2)" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.6)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.2)")
+                }
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }
